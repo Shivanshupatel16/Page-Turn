@@ -104,7 +104,7 @@ const LoginForm = ({ setActiveTab }) => {
 
       if (token !== null) {
         try {
-          const response = await axios.get("/api/profile", {
+          const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/profile`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
