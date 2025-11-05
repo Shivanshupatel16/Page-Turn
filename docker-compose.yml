@@ -1,0 +1,59 @@
+# version: "3.8"
+
+# services:
+#   mongo:
+#     image: mongo
+#     container_name: pageturn-mongo
+#     restart: always
+#     ports:
+#       - "27018:27017"
+#     volumes:
+#       - mongo-data:/data/db
+#     networks:
+#       - app-network
+
+#   backend:
+#     build:
+#       context: ./backend
+#     ports:
+#       - "5000:5000"
+#     volumes:
+#       - ./backend/public:/app/public
+#     depends_on:
+#       - mongo
+#     environment:
+#       - PORT=5000
+#       - JWT_SECRET=shivanshu@1612
+#       - EMAIL_USER=shivanshupatel2004@gmail.com
+#       - EMAIL_PASS=qmiq ynxb wpso jzuv
+#       - MARKETPLACE_URL=http://backend:5000
+#       - RAZORPAY_KEY_ID=rzp_test_UMxis4SfK5sfqD
+#       - RAZORPAY_KEY_SECRET=t5V6a2vm8hRxrImEvTX9AWet
+#       - UPI_ID=success@razorpay
+#       - UPI_MERCHANT_NAME=Test Merchant
+#       - MONGO_URL=mongo:27017
+#     networks:
+#       - app-network
+
+#   frontend:
+#     build:
+#       context: ./frontend
+#     ports:
+#       - "3000:80"
+#     depends_on:
+#       - backend
+#     environment:
+#       - VITE_RAZORPAY_KEY=rzp_test_UMxis4SfK5sfqD
+#       - VITE_UPI_ID=success@razorpay
+#       - VITE_UPI_MERCHANT_NAME=Test Merchant
+#       - VITE_API_BASE_URL=/api
+#       - VITE_UPLOADS_BASE_URL=/uploads
+#       - VITE_API_BASE=http://backend:5000
+#     networks:
+#       - app-network
+
+# volumes:
+#   mongo-data:
+
+# networks:
+#   app-network:
