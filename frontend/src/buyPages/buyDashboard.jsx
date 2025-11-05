@@ -90,22 +90,23 @@ const CategoryPage = () => {
 const BookCard = ({ book }) => {
   const [imgSrc, setImgSrc] = useState(null);
   const getImageUrl = (path) => {
-    if (path.startsWith('http')) return path;
-    return path; // Use path directly as it should be relative
-    // return `${import.meta.env.VITE_API_BASE_URL}${path}`;
-  };
+  if (!path) return "";
+  if (path.startsWith("http")) return path;
+  return `${import.meta.env.VITE_UPLOADS_BASE_URL}${path}`;
+};
 
 
-  useEffect(() => {
-    if (book?.images?.[0]) {
-      const baseUrl = import.meta.env.VITE_UPLOADS_BASE_URL || '/uploads';
-      const cleanPath = book.images[0].replace(/^\/uploads\//, ''); // Remove leading /uploads/
-      const url = `${baseUrl}/${cleanPath}`;
-      setImgSrc(url);
-    } else {
-      setImgSrc('/placeholder-book.jpg');
-    }
-  }, [book]);
+ useEffect(() => {
+  if (book?.images?.[0]) {
+    const baseUrl = import.meta.env.VITE_UPLOADS_BASE_URL?.replace(/\/$/, '') || '';
+    const cleanPath = book.images[0].replace(/^\/+/, ''); // remove any leading slashes
+    const url = `${baseUrl}/${cleanPath}`;
+    setImgSrc(url);
+  } else {
+    setImgSrc('/placeholder-book.jpg');
+  }
+}, [book]);
+
 
 
   return (
