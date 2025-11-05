@@ -303,45 +303,45 @@ const MyListingsBooks = () => {
         switch (selectedFilter) {
           case "Available":
             response = await axios.get(
-              "/api/books/approvedBooks",
+              `${import.meta.env.VITE_API_BASE_URL}/books/approvedBooks`,
               config
             );
             data = response.data.books || [];
             break;
           case "Pending":
             response = await axios.get(
-              "/api/books/pendingBook",
+              `${import.meta.env.VITE_API_BASE_URL}/books/pendingBook`,
               config
             );
             data = response.data.books || [];
             break;
           case "Rejected":
             response = await axios.get(
-              "/api/books/rejectedBooks",
+              `${import.meta.env.VITE_API_BASE_URL}/books/rejectedBooks`,
               config
             );
-            data = response.data.books || [];  
+            data = response.data.books || [];
             break;
           case "Sold":
             response = await axios.get(
-              "/api/books/sold/user",
+              `${import.meta.env.VITE_API_BASE_URL}/books/sold/user`,
               config
             );
             data = response.data.soldBooks || [];
             break;
           case "Bought":
             response = await axios.get(
-              "/api/books/buy/user",
+              `${import.meta.env.VITE_API_BASE_URL}/books/buy/user`,
               config
             );
             data = response.data.boughtBooks || [];
             break;
           default: // All
             response = await axios.get(
-              "/api/books/userBooks",
+              `${import.meta.env.VITE_API_BASE_URL}/books/userBooks`,
               config
             );
-            data = response.data.allBooks || []; 
+            data = response.data.allBooks || [];
         }
 
         console.log("Clean API Data:", data);
@@ -355,9 +355,11 @@ const MyListingsBooks = () => {
           condition: book.condition,
           description: book.description,
           category: book.category,
-          status: book.rejected ? "Rejected" : 
-                 book.approved ? "Available" : 
-                 book.status || "Pending",
+          status: book.rejected
+            ? "Rejected"
+            : book.approved
+            ? "Available"
+            : book.status || "Pending",
           image: book.images?.[0] || null,
           createdAt: book.createdAt,
         }));
@@ -387,7 +389,9 @@ const MyListingsBooks = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/books/deleteBook/${id}`);
+      await axios.delete(
+        `${import.meta.env.VITE_API_BASE_URL}/books/deleteBook/${id}`
+      );
       setListings((prev) => prev.filter((book) => book.id !== id));
       calculateEarnings(listings.filter((book) => book.id !== id));
     } catch (error) {
@@ -455,7 +459,7 @@ const MyListingsBooks = () => {
   }
 
   const FILTER_OPTIONS = [
-    { value: "All", label: "All", icon: BookOpenIcon }, 
+    { value: "All", label: "All", icon: BookOpenIcon },
     { value: "Available", label: "Approved", icon: CheckBadgeIcon },
     { value: "Pending", label: "Pending", icon: ClockIcon },
     { value: "Rejected", label: "Rejected", icon: XMarkIcon },
@@ -482,7 +486,7 @@ const MyListingsBooks = () => {
               <div>
                 <p className="text-slate-600">Total Earnings</p>
                 <p className="text-2xl font-semibold text-slate-800">
-                ₹{totalEarnings.toFixed(2)}
+                  ₹{totalEarnings.toFixed(2)}
                 </p>
               </div>
             </div>
@@ -549,12 +553,15 @@ const MyListingsBooks = () => {
                     <div className="h-48 bg-slate-100 flex items-center justify-center">
                       {listing.image ? (
                         <img
-                          src={`http://localhost:5000${listing.image}`}
+                          src={`${import.meta.env.VITE_UPLOADS_BASE_URL?.replace(
+                            /\/$/,
+                            ""
+                          )}${listing.image}`}
                           alt={listing.title}
                           className="w-full h-full object-cover"
                           onError={(e) => {
-                            console.error("Image load error:", e.target.src); 
-                            e.target.style.display = "none";
+                            console.error("Image load error:", e.target.src);
+                            e.target.style.display = "none"; // hide broken image
                           }}
                         />
                       ) : (
@@ -589,7 +596,7 @@ const MyListingsBooks = () => {
                       <div className="flex items-center gap-2">
                         <CurrencyDollarIcon className="h-5 w-5 text-emerald-600" />
                         <span className="text-xl font-medium text-slate-800">
-                        ₹{listing.price}
+                          ₹{listing.price}
                         </span>
                       </div>
                       <span className="bg-slate-100 text-slate-600 px-2 py-1 rounded text-sm">
