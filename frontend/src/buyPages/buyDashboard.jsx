@@ -97,15 +97,20 @@ const BookCard = ({ book }) => {
 
 
  useEffect(() => {
+  console.log("Book data:", book);
+
   if (book?.images?.[0]) {
     const baseUrl = import.meta.env.VITE_UPLOADS_BASE_URL?.replace(/\/$/, '') || '';
-    const cleanPath = book.images[0].replace(/^\/+/, ''); // remove any leading slashes
+    const cleanPath = book.images[0].replace(/^\/+/, '');
     const url = `${baseUrl}/${cleanPath}`;
+    console.log("✅ Using image:", url);
     setImgSrc(url);
   } else {
+    console.log("❌ No image found, using placeholder");
     setImgSrc('/placeholder-book.jpg');
   }
 }, [book]);
+
 
 
 
