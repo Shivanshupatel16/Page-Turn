@@ -556,7 +556,7 @@ const MyListingsBooks = () => {
                           src={`${import.meta.env.VITE_UPLOADS_BASE_URL?.replace(
                             /\/$/,
                             ""
-                          )}${listing.image}`}
+                          )}/uploads${listing.image.replace(/^\/uploads/, "")}`}
                           alt={listing.title}
                           className="w-full h-full object-cover"
                           onError={(e) => {
