@@ -1,24 +1,23 @@
 import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
+  service: 'Gmail', 
   auth: {
     user: process.env.EMAIL_USER, 
-    pass: process.env.EMAIL_PASS, 
-  },
-});
-
-transporter.verify((error, success) => {
-  if (error) {
-    console.error('SMTP Connection Error:', error);
-  } else {
-    console.log('✅ SMTP Server Ready');
+    pass: process.env.EMAIL_PASS  
   }
 });
+
+transporter.verify((error) => {
+  if (error) {
+      console.error('SMTP Connection Error:', error);
+  } else {
+      console.log('SMTP Server Ready');
+  }
+});
+
 export const sendApprovalEmail = async (toEmail, bookTitle) => {
   const mailOptions = {
     from: `"PageTurn Admin" <${process.env.EMAIL_USER}>`,
@@ -33,14 +32,13 @@ export const sendApprovalEmail = async (toEmail, bookTitle) => {
           This is an automated message. Please do not reply directly to this email.
         </p>
       </div>
-    `,
+    `
   };
 
   try {
-    const info = await transporter.sendMail(mailOptions);
-    console.log('✅ Approval email sent:', info.messageId);
+    await transporter.sendMail(mailOptions);
   } catch (error) {
-    console.error('❌ Error sending approval email:', error);
+    console.error('Error sending approval email:', error);
     throw error;
   }
 };
@@ -62,14 +60,13 @@ export const sendRejectionEmail = async (toEmail, bookTitle, reason) => {
           This is an automated message. Please do not reply directly to this email.
         </p>
       </div>
-    `,
+    `
   };
 
   try {
-    const info = await transporter.sendMail(mailOptions);
-    console.log('✅ Rejection email sent:', info.messageId);
+    await transporter.sendMail(mailOptions);
   } catch (error) {
-    console.error('❌ Error sending rejection email:', error);
+    console.error('Error sending rejection email:', error);
     throw error;
   }
 };
