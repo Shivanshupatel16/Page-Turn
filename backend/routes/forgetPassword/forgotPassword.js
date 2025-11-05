@@ -10,10 +10,12 @@ const forgotPassword = express.Router();
 const sendResetPasswordEmail = async (email, verificationotp) => {
   try {
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 465, // SSL
+      secure: true,
       auth: {
         user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        pass: process.env.EMAIL_PASS, // Gmail App Password
       },
     });
 
@@ -38,14 +40,21 @@ forgotPassword.post("/forgot-password", async (req, res) => {
     const { email } = req.body;
 
     if (!email) {
-      return res.status(400).json({ message: " Email is required", success: false });
+      return res
+        .status(400)
+        .json({ message: " Email is required", success: false });
     }
     const otp = Math.floor(100000 + Math.random() * 900000);
 
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(404).json({ message: " User with this email does not exist",success: false,});
+      return res
+        .status(404)
+        .json({
+          message: " User with this email does not exist",
+          success: false,
+        });
     }
     user.verificationotp = otp;
     user.resetPasswordExpires = Date.now() + 10 * 60 * 1000;
