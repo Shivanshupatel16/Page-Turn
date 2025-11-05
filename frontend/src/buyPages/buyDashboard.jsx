@@ -168,7 +168,7 @@ const BookStoreFrontpage = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get('/api/books/allBooks',{
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/books/allBooks`,{
           headers: {
             Authorization: `Bearer ${token}`,
           },
