@@ -26,6 +26,8 @@ import paymentRouter from "./controllers/payment/payment.js";
 import soldBooksRouter from "./routes/bookRoutes/userSoldBooksRoutes.js";
 import buyBooksRouter from "./routes/bookRoutes/userBuyBooksRouter.js";
 import getBooksByCategoryRouter from "./routes/bookRoutes/getBooksByCategoryRouter.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 
 const __filename = fileURLToPath(import.meta.url);
