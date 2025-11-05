@@ -87,12 +87,12 @@ paymentRouter.post("/create-order", authMiddleware, async (req, res) => {
 
     const upiLink = generateUPIQRLink(order.amount, order.id);
 
-    console.log("Generated UPI Link:", upiLink);
-    console.log("Environment Variables:", {
-      UPI_ID: process.env.UPI_ID,
-      RAZORPAY_KEY_ID: process.env.RAZORPAY_KEY_ID,
-      UPI_MERCHANT_NAME: process.env.UPI_MERCHANT_NAME,
-    });
+    // console.log("Generated UPI Link:", upiLink);
+    // console.log("Environment Variables:", {
+    //   UPI_ID: process.env.UPI_ID,
+    //   RAZORPAY_KEY_ID: process.env.RAZORPAY_KEY_ID,
+    //   UPI_MERCHANT_NAME: process.env.UPI_MERCHANT_NAME,
+    // });
 
     res.status(200).json({
       success: true,
