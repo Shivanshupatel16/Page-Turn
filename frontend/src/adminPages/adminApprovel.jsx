@@ -274,7 +274,7 @@ const AdminApprovalPage = () => {
                 <div className="h-60 bg-slate-50 relative overflow-hidden rounded-t-xl">
                   {book.images?.[0] ? (
                     <img
-                      src={`http://localhost:5000${book.images[0]}`}
+                      src={`${import.meta.env.VITE_UPLOADS_BASE_URL}${book.images[0]}`}
                       alt={book.title}
                       className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                       onError={(e) => {
