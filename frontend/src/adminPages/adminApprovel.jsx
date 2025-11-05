@@ -144,7 +144,7 @@ const AdminApprovalPage = () => {
     try {
       setProcessingIds((prev) => [...prev, bookId]);
       await axios.put(
-        `/api/books/approveBook/${bookId}`,
+        `${import.meta.env.VITE_API_BASE_URL}/books/approveBook/${bookId}`,
         {},
         {
           headers: {
@@ -166,7 +166,7 @@ const AdminApprovalPage = () => {
     try {
       setProcessingIds((prev) => [...prev, selectedBook._id]);
       await axios.put(
-        `/api/books/rejectBook/${selectedBook._id}`,
+        `${import.meta.env.VITE_API_BASE_URL}/books/rejectBook/${selectedBook._id}`,
         { rejectionReason: reason },
         {
           headers: {
