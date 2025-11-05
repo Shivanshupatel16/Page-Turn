@@ -83,7 +83,7 @@ const SellPage = () => {
       const token = localStorage.getItem("token");
 
       const response = await axios.post(
-        "/api/books/sellBooks",
+        `${import.meta.env.VITE_API_BASE_URL}/books/sellBooks`,
         formDataToSend,
         {
           headers: {

@@ -114,7 +114,7 @@ const AdminApprovalPage = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "/api/books/pending",
+        `${import.meta.env.VITE_API_BASE_URL}/books/pending`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

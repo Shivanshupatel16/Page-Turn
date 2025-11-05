@@ -32,7 +32,7 @@ const EditBookForm = ({ book, onClose, onUpdate }) => {
     setLoading(true);
     try {
       const response = await axios.put(
-        `/api/books/updateBook/${book.id}`,
+        `${import.meta.env.VITE_API_BASE_URL}/books/updateBook/${book.id}`,
         formData
       );
       onUpdate(response.data.update);

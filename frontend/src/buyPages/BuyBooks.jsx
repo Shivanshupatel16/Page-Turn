@@ -75,7 +75,7 @@ console.log("Loaded Razorpay Key:", RAZORPAY_KEY);
 if (!RAZORPAY_KEY) {
   toast.error("Razorpay key is missing. Check environment setup.");
 }
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:5000";
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
 
 const imageVariants = {
   hidden: { opacity: 0, scale: 0.9 },
@@ -125,7 +125,7 @@ const BookDetails = () => {
           return;
         }
 
-        const response = await axios.get(`/api/books/${id}`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/books/${id}`, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
 
@@ -201,7 +201,7 @@ const BookDetails = () => {
     paymentPollInterval.current = setInterval(async () => {
       try {
         const { data } = await axios.get(
-          `${API_BASE}/api/payments/status/${orderId}`,
+          `${API_BASE}/payments/status/${orderId}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -263,7 +263,7 @@ const BookDetails = () => {
       }
 
       const { data } = await axios.post(
-        `${API_BASE}/api/payments/create-order`,
+        `${API_BASE}/payments/create-order`,
         {
           bookId: state.book._id,
           method: "upi",
@@ -352,7 +352,7 @@ const BookDetails = () => {
       }
 
       const verificationResponse = await axios.post(
-        `${API_BASE}/api/payments/verify`,
+        `${API_BASE}/payments/verify`,
         paymentData,
         {
           headers: {

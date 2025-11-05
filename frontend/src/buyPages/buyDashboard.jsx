@@ -27,7 +27,7 @@ const CategoryPage = () => {
     const fetchCategoryBooks = async () => {
       try {
         const response = await axios.get(
-          `/api/books/category/${encodeURIComponent(categoryName)}`,
+          `${import.meta.env.VITE_API_BASE_URL}/books/category/${encodeURIComponent(categoryName)}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

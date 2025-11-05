@@ -32,7 +32,7 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get("/api/profile", {
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/profile`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -56,7 +56,7 @@ const ProfilePage = () => {
     e.preventDefault();
     const token = localStorage.getItem("token");
     try {
-      const response = await axios.put(`/api/updateProfile/${user._id}`,formData,{
+      const response = await axios.put(`${import.meta.env.VITE_API_BASE_URL}/updateProfile/${user._id}`,formData,{
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -82,7 +82,7 @@ const ProfilePage = () => {
     try {
       const token = localStorage.getItem("token");
     
-      const response = await axios.put(`/api/updateProfile/${user._id}`,
+      const response = await axios.put(`${import.meta.env.VITE_API_BASE_URL}/updateProfile/${user._id}`,
         {
           oldPassword: passwordData.oldPassword,
           password: passwordData.password,

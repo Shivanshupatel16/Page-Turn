@@ -53,7 +53,7 @@ const OtpVerification = ({ setStep, email }) => {
     setLoading(true);
 
     try {
-      const response = await axios.post("/api/password/verify-password", {
+      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/password/verify-password`, {
         email,
         verificationotp: otpValue,
       });
@@ -76,7 +76,7 @@ const OtpVerification = ({ setStep, email }) => {
     setError("");
 
     try {
-      const response = await axios.post("/api/password/forgot-password", { email });   
+      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/password/forgot-password`, { email });   
       const data = response.data;
       toast.success("OTP send successfully")
     } catch (err) {

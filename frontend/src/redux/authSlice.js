@@ -30,7 +30,7 @@ export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post('/api/user/login', { email, password },
+      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/user/login`, { email, password },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
@@ -52,7 +52,7 @@ export const signupUser = createAsyncThunk(
   'auth/signupUser',
   async ({ name, email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post('/api/user/signup', { name, email, password });
+      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/user/signup`, { name, email, password });
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Signup failed');
