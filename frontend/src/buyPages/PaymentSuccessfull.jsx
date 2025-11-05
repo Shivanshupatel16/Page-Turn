@@ -66,7 +66,7 @@ const PaymentSuccess = () => {
                   </div>
                   <div className="mt-4">
                     <span className="text-emerald-600 font-semibold">
-                      ${state.book.price}
+                      ₹{state.book.price}
                     </span>
                   </div>
                 </div>
@@ -93,7 +93,7 @@ const PaymentSuccess = () => {
                 <div className="flex justify-between border-t pt-3">
                   <dt className="text-gray-600 font-semibold">Total Paid:</dt>
                   <dd className="text-emerald-600 font-semibold">
-                    ${state.book.price}
+                    ₹{state.book.price}
                   </dd>
                 </div>
               </dl>
