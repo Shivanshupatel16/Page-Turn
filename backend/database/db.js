@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
-const mongodb= `mongodb://${process.env.MONGO_URL}/PageTurn`
+import dotenv from "dotenv";
+dotenv.config();
+const mongodb= `mongodb+srv://${process.env.MONGO_URL}/Page-Turn`
+
 
 const connectmongo = async () =>{
     try {

@@ -1,6 +1,9 @@
 import User from "./models/User.js";
 import bcrypt from "bcrypt"
 import connectmongo from "./database/db.js";
+import dotenv from "dotenv";
+dotenv.config(); 
+
 
 
 const admin = async (email) => {
