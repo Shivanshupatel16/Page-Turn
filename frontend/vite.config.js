@@ -12,11 +12,11 @@ export default defineConfig({
   server: {
   proxy: {
     '/api': {
-      target: 'https://page-turn-2.onrender.com/',
+      target: 'https://page-turn-2.onrender.com',
       changeOrigin: true,
     },
     '/uploads': {
-      target: 'https://page-turn-2.onrender.com/',
+      target: 'https://page-turn-2.onrender.com',
       changeOrigin: true,
     },
   },
