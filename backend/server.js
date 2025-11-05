@@ -36,8 +36,6 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-import cors from "cors";
-
 app.use(cors({
   origin: ["https://page-turn-navy.vercel.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
