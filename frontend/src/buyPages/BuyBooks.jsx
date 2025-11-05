@@ -46,11 +46,21 @@ function stateReducer(state, action) {
     case "FETCH_ERROR":
       return { ...state, loading: false, error: action.payload };
     case "PAYMENT_START":
-      return { ...state, processingPayment: true, paymentStatus: "pending", error: null };
+      return {
+        ...state,
+        processingPayment: true,
+        paymentStatus: "pending",
+        error: null,
+      };
     case "PAYMENT_SUCCESS":
       return { ...state, processingPayment: false, paymentStatus: "success" };
     case "PAYMENT_FAIL":
-      return { ...state, processingPayment: false, paymentStatus: "error", error: action.payload };
+      return {
+        ...state,
+        processingPayment: false,
+        paymentStatus: "error",
+        error: action.payload,
+      };
     case "PAYMENT_CANCEL":
       return { ...state, processingPayment: false, paymentStatus: "cancelled" };
     default:
@@ -59,8 +69,10 @@ function stateReducer(state, action) {
 }
 
 const RAZORPAY_KEY = import.meta.env.VITE_RAZORPAY_KEY;
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
-const UPLOADS_BASE = import.meta.env.VITE_UPLOADS_BASE_URL || "http://localhost:5000";
+const API_BASE =
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
+const UPLOADS_BASE =
+  import.meta.env.VITE_UPLOADS_BASE_URL || "http://localhost:5000";
 
 const imageVariants = {
   hidden: { opacity: 0, scale: 0.9 },
@@ -167,12 +179,18 @@ const BookDetails = () => {
 
   const verifyPayment = async (response) => {
     try {
-      const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = response;
+      const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
+        response;
       const token = localStorage.getItem("token");
 
       const verification = await axios.post(
         `${API_BASE}/payments/verify`,
-        { razorpay_payment_id, razorpay_order_id, razorpay_signature, bookId: state.book._id },
+        {
+          razorpay_payment_id,
+          razorpay_order_id,
+          razorpay_signature,
+          bookId: state.book._id,
+        },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -186,7 +204,10 @@ const BookDetails = () => {
               title: state.book?.title,
               author: state.book?.author,
               price: state.book?.price,
-              image: `${UPLOADS_BASE}${state.book?.images?.[0]?.replace(/^\/uploads/, "")}`,
+              image: `${UPLOADS_BASE}/uploads${state.book?.images?.[0]?.replace(
+                /^\/uploads/,
+                ""
+              )}`, //add here
               condition: state.book?.condition,
             },
             payment: {
@@ -221,7 +242,7 @@ const BookDetails = () => {
     );
   }
 
- return (
+  return (
     <ErrorBoundary>
       <Navbar />
       <div className="min-h-screen bg-gray-50">
@@ -249,8 +270,10 @@ const BookDetails = () => {
                     onClick={() => setSelectedImage(index)}
                   >
                     <img
-                      src={`${UPLOADS_BASE}${img.replace(/^\/uploads/, "")}`}
-                      className="h-24 w-full object-cover rounded-lg "
+                      src={`${
+                        import.meta.env.VITE_UPLOADS_BASE_URL
+                      }/uploads/${img.replace(/^\/uploads\//, "")}`}
+                      className="h-24 w-full object-cover rounded-lg"
                       alt={`Thumbnail ${index + 1}`}
                     />
                   </motion.div>
@@ -266,9 +289,12 @@ const BookDetails = () => {
               >
                 <div className="w-[400px] h-[500px] rounded-lg overflow-hidden shadow-lg">
                   <img
-                    src={`${UPLOADS_BASE}${state.book?.images?.[
-                      selectedImage
-                    ]?.replace(/^\/uploads/, "")}`}
+                    src={`${
+                      import.meta.env.VITE_UPLOADS_BASE_URL
+                    }/uploads${state.book?.images?.[selectedImage]?.replace(
+                      /^\/uploads/,
+                      ""
+                    )}`}
                     className="w-full h-full object-contain rounded-lg"
                     alt={state.book?.title}
                   />
@@ -376,6 +402,3 @@ const BookDetails = () => {
 };
 
 export default BookDetails;
-
-
-
