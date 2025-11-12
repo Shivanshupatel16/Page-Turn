@@ -89,29 +89,26 @@ const CategoryPage = () => {
 
 const BookCard = ({ book }) => {
   const [imgSrc, setImgSrc] = useState(null);
-  const getImageUrl = (path) => {
+ const getImageUrl = (path) => {
   if (!path) return "";
-  if (path.startsWith("http")) return path;
-  return `${import.meta.env.VITE_UPLOADS_BASE_URL}${path}`;
+  return path.startsWith("http")
+    ? path 
+    : `${import.meta.env.VITE_UPLOADS_BASE_URL}${path}`;
 };
 
 
- useEffect(() => {
-  console.log("Book data:", book);
 
+useEffect(() => {
+  console.log("📚 Book object:", book);
   if (book?.images?.[0]) {
-    const baseUrl = import.meta.env.VITE_UPLOADS_BASE_URL?.replace(/\/$/, '') || '';
-    const cleanPath = book.images[0].replace(/^\/+/, '');
-    const url = `${baseUrl}/${cleanPath}`;
-    console.log("✅ Using image:", url);
-    setImgSrc(url);
+    const imageUrl = getImageUrl(book.images[0]);
+    console.log("🖼️ Final image URL:", imageUrl);
+    setImgSrc(imageUrl);
   } else {
-    console.log("❌ No image found, using placeholder");
+    console.log("⚠️ No image found, using placeholder");
     setImgSrc('/placeholder-book.jpg');
   }
 }, [book]);
-
-
 
 
   return (

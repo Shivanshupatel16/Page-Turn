@@ -61,7 +61,7 @@ const SellPage = () => {
   const handleFileChange = (e) => {
     setFormData((prev) => ({
       ...prev,
-      images: Array.from(e.target.files).slice(0, 5),
+      images: e.target.files[0] ? [e.target.files[0]] : [], // only 1 file
     }));
   };
 
@@ -77,7 +77,7 @@ const SellPage = () => {
         if (key !== "images") formDataToSend.append(key, value);
       });
       formData.images.forEach((file) => {
-        formDataToSend.append("images", file);
+        formDataToSend.append("image", file);
       });
 
       const token = localStorage.getItem("token");
@@ -105,12 +105,12 @@ const SellPage = () => {
           description: "",
           images: [],
         });
-        toast.success("Book listed successfully! Waiting for admin approval.")
+        toast.success("Book listed successfully! Waiting for admin approval.");
       }
     } catch (err) {
       const errorMessage =
         err.response?.data?.error || err.message || "Failed to list book";
-        toast.error("Failed to list book")
+      toast.error("Failed to list book");
 
       setError(errorMessage);
     } finally {
@@ -239,13 +239,12 @@ const SellPage = () => {
                 <input
                   type="file"
                   className="hidden"
-                  multiple
                   onChange={handleFileChange}
                   accept="image/png, image/jpeg, image/webp"
                 />
               </motion.label>
               <p className="text-green-500 text-sm mt-4">
-                Max 5 photos (PNG, JPG, WEBP)
+                Max 1 photo (PNG, JPG, WEBP)
               </p>
             </div>
           </motion.div>

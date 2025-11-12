@@ -553,10 +553,17 @@ const MyListingsBooks = () => {
                     <div className="h-48 bg-slate-100 flex items-center justify-center">
                       {listing.image ? (
                         <img
-                          src={`${import.meta.env.VITE_UPLOADS_BASE_URL?.replace(
-                            /\/$/,
-                            ""
-                          )}/uploads${listing.image.replace(/^\/uploads/, "")}`}
+                          src={
+                            listing.image?.startsWith("http")
+                              ? listing.image // Cloudinary or external image
+                              : `${import.meta.env.VITE_UPLOADS_BASE_URL?.replace(
+                                  /\/$/,
+                                  ""
+                                )}/uploads${listing.image.replace(
+                                  /^\/uploads/,
+                                  ""
+                                )}`
+                          }
                           alt={listing.title}
                           className="w-full h-full object-cover"
                           onError={(e) => {

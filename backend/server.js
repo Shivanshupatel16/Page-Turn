@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import cors from "cors";
 import path from "path";
@@ -26,8 +29,9 @@ import paymentRouter from "./controllers/payment/payment.js";
 import soldBooksRouter from "./routes/bookRoutes/userSoldBooksRoutes.js";
 import buyBooksRouter from "./routes/bookRoutes/userBuyBooksRouter.js";
 import getBooksByCategoryRouter from "./routes/bookRoutes/getBooksByCategoryRouter.js";
-import dotenv from "dotenv";
-dotenv.config();
+import { upload,cloudinary } from "./config/upload.js";
+
+
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -81,7 +85,7 @@ app.use('/api/books', getBooksByCategoryRouter);
 
 app.use('/api/payments', paymentRouter);
 
-app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
+// app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

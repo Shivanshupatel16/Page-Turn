@@ -270,9 +270,13 @@ const BookDetails = () => {
                     onClick={() => setSelectedImage(index)}
                   >
                     <img
-                      src={`${
-                        import.meta.env.VITE_UPLOADS_BASE_URL
-                      }/uploads/${img.replace(/^\/uploads\//, "")}`}
+                      src={
+                        img.startsWith("http")
+                          ? img
+                          : `${
+                              import.meta.env.VITE_UPLOADS_BASE_URL
+                            }/uploads/${img.replace(/^\/uploads\//, "")}`
+                      }
                       className="h-24 w-full object-cover rounded-lg"
                       alt={`Thumbnail ${index + 1}`}
                     />
@@ -289,12 +293,15 @@ const BookDetails = () => {
               >
                 <div className="w-[400px] h-[500px] rounded-lg overflow-hidden shadow-lg">
                   <img
-                    src={`${
-                      import.meta.env.VITE_UPLOADS_BASE_URL
-                    }/uploads${state.book?.images?.[selectedImage]?.replace(
-                      /^\/uploads/,
-                      ""
-                    )}`}
+                    src={
+                      state.book?.images?.[selectedImage]?.startsWith("http")
+                        ? state.book?.images?.[selectedImage]
+                        : `${
+                            import.meta.env.VITE_UPLOADS_BASE_URL
+                          }/uploads${state.book?.images?.[
+                            selectedImage
+                          ]?.replace(/^\/uploads/, "")}`
+                    }
                     className="w-full h-full object-contain rounded-lg"
                     alt={state.book?.title}
                   />
