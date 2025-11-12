@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { Toaster, toast } from "sonner";
-import { 
-  BookOpenIcon, 
-  XMarkIcon, 
+import {
+  BookOpenIcon,
+  XMarkIcon,
   ArrowPathIcon,
   CheckBadgeIcon,
-  NoSymbolIcon
+  NoSymbolIcon,
 } from "@heroicons/react/24/outline";
 import Navbar from "@/pages/Navbar";
 
@@ -55,7 +55,9 @@ const RejectionModal = ({ book, onClose, onReject }) => {
         <div className="space-y-4">
           <div className="text-center">
             <NoSymbolIcon className="h-12 w-12 text-rose-500 mx-auto mb-2" />
-            <h3 className="text-2xl font-bold text-slate-800">Reject Submission</h3>
+            <h3 className="text-2xl font-bold text-slate-800">
+              Reject Submission
+            </h3>
             <p className="text-slate-600 mt-1">
               {book.title} by {book.author}
             </p>
@@ -166,7 +168,9 @@ const AdminApprovalPage = () => {
     try {
       setProcessingIds((prev) => [...prev, selectedBook._id]);
       await axios.put(
-        `${import.meta.env.VITE_API_BASE_URL}/books/rejectBook/${selectedBook._id}`,
+        `${import.meta.env.VITE_API_BASE_URL}/books/rejectBook/${
+          selectedBook._id
+        }`,
         { rejectionReason: reason },
         {
           headers: {
@@ -174,7 +178,9 @@ const AdminApprovalPage = () => {
           },
         }
       );
-      setPendingBooks((prev) => prev.filter((book) => book._id !== selectedBook._id));
+      setPendingBooks((prev) =>
+        prev.filter((book) => book._id !== selectedBook._id)
+      );
       toast.success("Book rejected successfully");
     } catch (error) {
       console.error("Rejection error:", error);
@@ -239,7 +245,9 @@ const AdminApprovalPage = () => {
             onClick={fetchPendingBooks}
             className="flex items-center gap-2 mt-16 px-5 py-2.5 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 text-slate-700 shadow-sm"
           >
-            <ArrowPathIcon className={`h-5 w-5 ${loading ? "animate-spin" : ""}`} />
+            <ArrowPathIcon
+              className={`h-5 w-5 ${loading ? "animate-spin" : ""}`}
+            />
             Refresh
           </button>
         </div>
@@ -274,16 +282,26 @@ const AdminApprovalPage = () => {
                 <div className="h-60 bg-slate-50 relative overflow-hidden rounded-t-xl">
                   {book.images?.[0] ? (
                     <img
-                      src={`${import.meta.env.VITE_UPLOADS_BASE_URL}${book.images[0]}`}
+                      src={
+                        book.images?.[0]?.startsWith("http")
+                          ? book.images[0]
+                          : `${import.meta.env.VITE_UPLOADS_BASE_URL}${
+                              book.images[0]
+                            }`
+                      }
                       alt={book.title}
                       className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                       onError={(e) => {
                         e.target.onerror = null;
                         e.target.parentElement.innerHTML = `
-                          <div class="w-full h-full flex items-center justify-center bg-emerald-50">
-                            <BookOpenIcon class="h-16 w-16 text-emerald-200" />
-                          </div>
-                        `;
+      <div class="w-full h-full flex items-center justify-center bg-emerald-50">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
+          stroke-width="1.5" stroke="currentColor" class="h-16 w-16 text-emerald-200">
+          <path stroke-linecap="round" stroke-linejoin="round" 
+            d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
+      </div>
+    `;
                       }}
                     />
                   ) : (
@@ -303,7 +321,7 @@ const AdminApprovalPage = () => {
                   <p className="text-sm text-slate-600">
                     by <span className="font-medium">{book.author}</span>
                   </p>
-                  
+
                   {book.description && (
                     <p className="text-sm text-slate-500 line-clamp-3">
                       {book.description}
@@ -336,7 +354,6 @@ const AdminApprovalPage = () => {
                         disabled={processingIds.includes(book._id)}
                       >
                         <NoSymbolIcon className="h-4 w-4" />
-                        
                       </button>
                     </div>
                   </div>

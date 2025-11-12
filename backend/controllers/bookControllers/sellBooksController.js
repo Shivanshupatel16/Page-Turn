@@ -20,16 +20,11 @@ const sellBookController = async (req, res, next) => {
     if (!req.file)
       return res.status(400).json({ success: false, error: "At least one image is required" });
 
-    console.log("📸 Received file:", req.file);
 
-    // ✅ Upload to Cloudinary
     const uploadResult = await cloudinary.uploader.upload(req.file.path, {
       folder: "pageturn_books",
     });
 
-    console.log("✅ Cloudinary Upload Result:", uploadResult);
-
-    // ✅ Save in MongoDB
     const book = await Book.create({
       title,
       author,
