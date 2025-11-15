@@ -59,17 +59,17 @@ const PaymentSuccess = () => {
               <div className="flex items-start space-x-4">
                 <img
                   src={
-                    state.book.image?.startsWith("http")
-                      ? state.book.image
+                    state.book?.images?.[selectedImage]?.startsWith("http")
+                      ? state.book?.images?.[selectedImage]
                       : `${
                           import.meta.env.VITE_UPLOADS_BASE_URL
-                        }/uploads/${state.book.image.replace(
-                          /^\/uploads\//,
+                        }/uploads${state.book?.images?.[selectedImage]?.replace(
+                          /^\/uploads/,
                           ""
                         )}`
                   }
-                  alt={state.book.title}
-                  className="w-24 h-32 object-cover rounded-md shadow-sm"
+                  className="w-full h-full object-contain rounded-lg"
+                  alt={state.book?.title}
                 />
 
                 <div className="flex-1">
