@@ -17,6 +17,11 @@ const PaymentSuccess = () => {
   if (!state?.book || !state?.payment) {
     toast.error("Unable to verify the order. Redirecting to your dashboard.");
 
+    const imgPath =
+  state.book?.images?.[selectedImage] ||
+  state.book?.image ||
+  null;
+
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
         <div className="text-center max-w-md">
@@ -62,15 +67,12 @@ const PaymentSuccess = () => {
               <div className="flex items-start space-x-4">
                 <img
                   src={
-                    state.book?.images?.[selectedImage]
-                      ? /^https?:\/\//.test(state.book.images[selectedImage])
-                        ? state.book.images[selectedImage]
+                    imgPath
+                      ? /^https?:\/\//.test(imgPath)
+                        ? imgPath
                         : `${
                             import.meta.env.VITE_UPLOADS_BASE_URL
-                          }/uploads${state.book.images[selectedImage].replace(
-                            /^\/uploads/,
-                            ""
-                          )}`
+                          }/uploads${imgPath.replace(/^\/uploads/, "")}`
                       : "/placeholder-book.jpg"
                   }
                   className="w-full h-full object-contain rounded-lg"
