@@ -11,6 +11,8 @@ const PaymentSuccess = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
 
+  const [selectedImage] = useState(0);
+
   if (!state?.book || !state?.payment) {
     toast.error("Unable to verify the order. Redirecting to your dashboard.");
 
@@ -70,7 +72,7 @@ const PaymentSuccess = () => {
                           )}`
                       : "/placeholder-book.jpg"
                   }
-                  className="w-full h-full object-contain rounded-lg"
+                  className="w-24 h-32 object-cover rounded-md shadow-sm"
                   alt={state.book?.title}
                 />
 
