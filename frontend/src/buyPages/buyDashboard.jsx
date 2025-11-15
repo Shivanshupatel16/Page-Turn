@@ -25,6 +25,10 @@ const CategoryPage = () => {
 
   useEffect(() => {
     const fetchCategoryBooks = async () => {
+      const token = localStorage.getItem("token");
+  
+      if (!token) return;
+  
       try {
         const response = await axios.get(
           `${import.meta.env.VITE_API_BASE_URL}/books/category/${encodeURIComponent(categoryName)}`,
@@ -36,13 +40,15 @@ const CategoryPage = () => {
         );
         setBooks(response.data.books);
       } catch (err) {
-        setError(err.response?.data?.error || 'Failed to fetch books');
+        setError(err.response?.data?.error || "Failed to fetch books");
       } finally {
         setLoading(false);
       }
     };
+  
     fetchCategoryBooks();
   }, [categoryName]);
+  
 
   const filteredBooks = books.filter(book =>
     book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -170,22 +176,30 @@ const BookStoreFrontpage = () => {
 
   useEffect(() => {
     const fetchBooks = async () => {
+      const token = localStorage.getItem("token"); 
+  
+      if (!token) return;
+  
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/books/allBooks`,{
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_BASE_URL}/books/allBooks`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         setBooks(response.data.allBooks);
       } catch (err) {
-        setError(err.response?.data?.error || 'Failed to fetch books');
-        // toast.error(error.response?.data?.message || "Failed to fetch books");
+        setError(err.response?.data?.error || "Failed to fetch books");
       } finally {
         setLoading(false);
       }
     };
+  
     fetchBooks();
   }, []);
+  
 
 const groupedBooks = books.reduce((acc, book) => {
   const category = book.category || 'Other';
