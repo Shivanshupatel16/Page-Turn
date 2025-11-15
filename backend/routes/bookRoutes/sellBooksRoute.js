@@ -5,6 +5,6 @@ import sellBookController from "../../controllers/bookControllers/sellBooksContr
 
 const router = express.Router();
 
-router.post("/sellBooks", authMiddleware, upload.single("images"), sellBookController);
+router.post("/sellBooks", authMiddleware, upload.single("image"), sellBookController);
 
 export default router;
