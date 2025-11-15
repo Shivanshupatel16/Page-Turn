@@ -1,4 +1,4 @@
-import { useState , useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   CheckCircleIcon,
@@ -6,6 +6,7 @@ import {
   ArrowLeftIcon,
 } from "@heroicons/react/24/outline";
 import { toast } from "sonner";
+import { useState } from "react";
 
 const PaymentSuccess = () => {
   const { state } = useLocation();
