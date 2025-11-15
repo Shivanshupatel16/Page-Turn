@@ -35,6 +35,8 @@ const Navbar = () => {
   };
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
     const fetchProfile = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/profile`, {
