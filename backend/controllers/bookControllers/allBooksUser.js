@@ -8,7 +8,7 @@ const getUserBooks = async (req, res) => {
     const [sellerBooks, approvedBooks] = await Promise.all([
       Book.find({ 
         seller: userId,
-        status: { $in: ['Pending', 'Rejected'] }
+        status: { $in: ['Pending', 'Rejected','Sold','Bought'] }
       }).lean(),
       ApprovedBook.find({ user: userId })
         .lean()
