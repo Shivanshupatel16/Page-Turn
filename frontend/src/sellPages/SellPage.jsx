@@ -61,7 +61,7 @@ const SellPage = () => {
   const handleFileChange = (e) => {
     setFormData((prev) => ({
       ...prev,
-      images: e.target.files[0] ? [e.target.files[0]] : [], // only 1 file
+      images: e.target.files[0] ? [e.target.files[0]] : [], 
     }));
   };
 

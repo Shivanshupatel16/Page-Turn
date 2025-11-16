@@ -15,7 +15,6 @@ const authMiddleware = async (req, res, next) => {
       id: decoded.userId,
       role: decoded.role
     };
-    console.log("Decoded JWT:", decoded);
 
 
     next();

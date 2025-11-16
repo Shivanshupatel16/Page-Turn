@@ -200,18 +200,9 @@ const BookDetails = () => {
 
         navigate("/paymentSuccess", {
           state: {
-            book: {
-              title: state.book?.title,
-              author: state.book?.author,
-              price: state.book?.price,
-              image: `${UPLOADS_BASE}/uploads${state.book?.images?.[0]?.replace(
-                /^\/uploads/,
-                ""
-              )}`, //add here
-              condition: state.book?.condition,
-            },
+            book: verification.data.book, 
             payment: {
-              id: verification.data.paymentId,
+              id: razorpay_payment_id,
               date: new Date().toLocaleString(),
               method: "UPI/Card",
             },

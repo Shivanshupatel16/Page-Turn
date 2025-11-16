@@ -5,7 +5,6 @@ const sellBookController = async (req, res, next) => {
     const { title, author, isbn, price, condition, description, category } = req.body;
     const seller = req.user?.id;
 
-    // ✅ Basic Validation
     const requiredFields = ["title", "author", "condition", "category", "price"];
     const missingFields = requiredFields.filter((field) => !req.body[field]);
     if (missingFields.length > 0)

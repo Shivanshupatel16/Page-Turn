@@ -1,5 +1,3 @@
-// import { ErrorResponse } from '../utils/errorResponse.js';
-
 const handleUpload = (fieldName, maxCount) => {
   return (req, res, next) => {
     const uploadMiddleware =

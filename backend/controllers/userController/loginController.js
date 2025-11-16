@@ -27,7 +27,6 @@ const login = async(req,res)=>{
             process.env.JWT_SECRET, 
             { expiresIn: "3hr" }
           );
-          console.log(token);
           res.status(200).json({ 
             user: {
                 _id: user._id,

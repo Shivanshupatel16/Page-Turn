@@ -205,7 +205,7 @@ const LoginForm = ({ setActiveTab }) => {
           </div>
           <div className="text-center">
             <button
-              onClick={() => navigate("/forgot-password")} // Add your forgot password route here
+              onClick={() => navigate("/forgot-password")} 
               className="text-sm text-slate-600 hover:text-slate-700 hover:underline"
             >
               Forgot Password?

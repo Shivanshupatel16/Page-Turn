@@ -105,7 +105,6 @@ const BookCard = ({ book }) => {
 
 
 useEffect(() => {
-  console.log("📚 Book object:", book);
   if (book?.images?.[0]) {
     const imageUrl = getImageUrl(book.images[0]);
     console.log("🖼️ Final image URL:", imageUrl);
