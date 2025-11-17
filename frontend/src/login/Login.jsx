@@ -99,32 +99,29 @@ const LoginForm = ({ setActiveTab }) => {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-  const token = localStorage.getItem("token");
+    const checkAuth = async () => {
+      const token = localStorage.getItem("token");
 
-  if (!token || token === "null" || token === "undefined") return;
+      if (token !== null) {
+        try {
+          const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/profile`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
 
-  const checkAuth = async () => {
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_BASE_URL}/profile`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
+          if (response.status === 200) {
+            navigate("/buyDashboard");
+            
+          }
+        } catch (error) {
+          console.error("Auth check failed:", error.response?.data || error.message);
         }
-      );
-
-      if (response.status === 200) {
-        navigate("/buyDashboard");
       }
-    } catch (error) {
-      console.error("Auth check failed:", error.response?.data || error.message);
-      localStorage.removeItem("token"); 
-      toast.error("Session expired, please login again");
-    }
-  };
+    };
 
-  checkAuth();
-}, []);
-
+    checkAuth();
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
