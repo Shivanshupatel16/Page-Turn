@@ -158,7 +158,6 @@ const AdminApprovalPage = () => {
       toast.success("Book approved successfully");
     } catch (error) {
       console.error("Approval error:", error);
-      toast.error(error.response?.data?.message || "Failed to approve book");
     } finally {
       setProcessingIds((prev) => prev.filter((id) => id !== bookId));
     }
